@@ -11,6 +11,9 @@ exports.tests = {
 		var pollio = new PollIO({pollLoopFrequency: 3000});
 		equal(3000, pollio.pollLoopFrequency, prefix + ' true was not false.');
 		equal('function', typeof(pollio.ajax), prefix + ' ajax function was not defined.');
+		pollio = new PollIO(function() { return 'foo' }, {pollLoopFrequency: 2000});
+		equal(2000, pollio.pollLoopFrequency, prefix + ' true was not false.');
+		equal('foo', pollio.ajax(), prefix + ' ajax function was not defined.');
 		finished();
 	}
 };
