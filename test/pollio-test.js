@@ -134,5 +134,27 @@ exports.tests = {
 				iterations++;
 			}
 		});
+	},
+	
+	'you should be able to override ajax on a request by request basis': function(finished, prefix) {
+		var pollio = new PollIO();
+		
+		pollio.schedule({
+			ajax: function(params) {
+				setTimeout(function() {
+					params.success({foo: 'snuh'});
+				}, 10);
+			},
+			identifier: 'foobar',
+			frequency: 1000,
+			max: 3,
+			url: 'example.com',
+			type: 'get',
+			onResults: function(results, stopPolling) {
+				stopPolling();
+				equal(results.foo, 'snuh', prefix + ' foo was not equal to snuh.');
+				finished();
+			}
+		});
 	}
 };
