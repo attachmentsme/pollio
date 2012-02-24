@@ -92,4 +92,4 @@ JavaScript is such an easy language to mock in. This approach is much cleaner th
 Examples
 --------
 
-[pollio](https://github.com/attachmentsme/pollio) Is a lightweight polling library built using the methodologies discussed in this post, check it out. 
+[Pollio](https://github.com/attachmentsme/pollio) is a lightweight polling library built using the methodologies discussed in this post, check it out. 
