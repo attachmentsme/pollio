@@ -92,4 +92,6 @@ JavaScript is such an easy language to mock in. This approach is much cleaner th
 Examples
 --------
 
-[Pollio](https://github.com/attachmentsme/pollio) is a lightweight polling library built using the methodologies discussed in this post, check it out. 
+* [pollio](https://github.com/attachmentsme/pollio) is a lightweight polling library built using the methodologies discussed in this post, check it out.
+* you can find the tests for pollio in the directory __/test__.
+* Note that, although pollio is ultimately used in our Chrome extension, the tests are run via Node.js.
