@@ -13,7 +13,7 @@ Why it's cool:
 Usage
 -----
 
-Instantiating the PollIO object
+Instantiating the PollIO Object
 -------------------------------
 
 
