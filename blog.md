@@ -9,7 +9,7 @@ As a result, I've found that I often drift away from being a responsible tester 
 * Due to this selector-centric paradigm, I feel these tools encourage you to test the wrong things. Point-and-click integration testing is a dangerous trap to fall in to.
 * Given that these technologies are steeped in the browser, making them part of a CI process is a pain.
 
-I've recently made a major change in my approach to client-side unit-testing, and I'm not going back.
+I've recently made a major change in my approach to client-side unit-testing. I'm not going back.
 
 Unit Testing With Node.js
 -------------------------
