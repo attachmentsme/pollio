@@ -29,8 +29,8 @@ var pollio = new PollIO({
 
 * _pollLoopFrequency_ how often does the event loop iterate (you can't schedule an AJAX request to poll more frequently than this.)
 
-Scheduling a Polling Request
-----------------------------
+Scheduling a Polling AJAX Request
+---------------------------------
 
 ```javascript
 pollio.schedule({
