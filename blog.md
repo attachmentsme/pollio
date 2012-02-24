@@ -16,7 +16,7 @@ Unit Testing With Node.js
 
 In the course of making several Node.js libraries, I gradually developed an approach to asynchronous unit-testing that I love.
 
-I built this into a micro-framework that I drop into all my JS projects:
+I pulled this into a micro-framework that I drop into all my JS projects:
 
 [Node-Micro-Test](https://github.com/bcoe/node-micro-test)
 
@@ -92,4 +92,9 @@ global.chrome = {
 }
 ```
 
-JavaScript is such an easy language to mock in. In my opinion this approach is much cleaner than having a massive set of dependencies, i.e., the web-browser.
+JavaScript is such an easy language to mock in. This approach is much cleaner than having a massive set of dependencies, i.e., the whole freaking web-browser.
+
+Examples
+--------
+
+__PollIO__ Is a lightweight polling library built using the methodologies discussed in this post, check it out. 
