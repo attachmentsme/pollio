@@ -27,7 +27,7 @@ var pollio = new PollIO({
 });
 ```
 
-* _pollLoopFrequency_ how often does the event loop iterate (you can't schedule an AJAX request to poll more frequently than this.)
+* __pollLoopFrequency__ how often does the event loop iterate (you can't schedule an AJAX request to poll more frequently than this.)
 
 Scheduling a Polling AJAX Request
 ---------------------------------
@@ -51,11 +51,11 @@ pollio.schedule({
 });
 ```
 
-* _identifier_ an optional identifier for this polling request. Only one polling request for a given identifier can be scheduled at a time.
-* _pollFrequency_ how frequently should this request be made? Granularity can't be less than _pollLoopFrequency_.
-* _maxPolls_ the maximum number of times that this request should be attempted.
-* _onFailure_ this callback is executed if maxPolls is exceeded.
-* _onResults_ the results from a successful _ajax_ request. Call _stopPolling()_ to remove this request from the scheduler.
+* __identifier__ an optional identifier for the polling request. Only one polling request for a given identifier can be scheduled at a time.
+* __pollFrequency__ how frequently should this request be made? Granularity can't be less than _pollLoopFrequency_.
+* __maxPolls__ the maximum number of times that this request should be attempted.
+* __onFailure__ this callback is executed if maxPolls is exceeded.
+* __onResults__ the results from a successful _ajax_ request. Call _stopPolling()_ to remove this request from the scheduler.
 
 Ajax Parameters
 ---------------
