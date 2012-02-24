@@ -6,8 +6,8 @@ I've never sat down to do browser-based unit-testing and left the experience wit
 As a result, I've found that I often drift away from being a responsible tester of my JavaScript code. Why is this?
 
 * Selector-based testing, using tools like Selenium and QUnit, is fragile.
-* Due to this selector-centric paradigm, I feel these tools encourage you to test the wrong things. I think point-and-click integration testing is a dangerous trap to fall in to.
-* Given that these technologies are steeped in the browser, making them part of a CI process sucks.
+* Due to this selector-centric paradigm, I feel these tools encourage you to test the wrong things. Point-and-click integration testing is a dangerous trap to fall in to.
+* Given that these technologies are steeped in the browser, making them part of a CI process is a pain.
 
 I've recently made a major change in my approach to client-side unit-testing, and I'm not going back.
 
@@ -41,14 +41,14 @@ __Here's what a test looks like:__
 ```
 
 * __finished__ this closure is called once, upon the terminal condition of your unit test, and moves the suite forward.
-* __prefix__ a string containing the name of the current test being executed. This lets the assertion print out a cleaner error message.
+* __prefix__ a string containing the name of the current test being executed. This can be used to print out contextual information when your assertions fail.
 
 Client-Side Testing
 -------------------
 
 This approach was working great for testing my Node.js libraries, but I was falling into my old routine of letting my client-side JavaScript become neglected.
 
-Finally, I came to these decisions:
+Finally, fed up, I made up my mind:
 
 * I'm going to primarily test models and controllers. Testing UI is, for the most part, too brittle.
 * I'm going to use Node.js to test my client-side JavaScript.
