@@ -5,7 +5,7 @@ I've never sat down to do browser-based unit-testing and left the experience wit
 
 As a result, I've found that I often drift away from being a responsible tester of my JavaScript code. Why is this?
 
-* Selector-based testing, using tools like Selenium or QUnit, is fragile.
+* Selector-based testing, using tools like Selenium and QUnit, is fragile.
 * Due to this paradigm, I feel these tools encourage you to test the wrong things. I find I often fall into the trap of making point-and-click integration tests of my UI.
 * Given that these technologies are steeped in the browser, making them part of a CI process sucks.
 
