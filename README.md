@@ -52,9 +52,9 @@ pollio.schedule({
 ```
 
 * __identifier__ an optional identifier for the polling request. Only one polling request for a given identifier can be scheduled at a time.
-* __pollFrequency__ how frequently should this request be made? Granularity can't be less than _pollLoopFrequency_.
+* __pollFrequency__ how frequently should this request be made? This can't be more often than _pollLoopFrequency_.
 * __maxPolls__ the maximum number of times that this request should be attempted.
-* __onFailure__ this callback is executed if maxPolls is exceeded.
+* __onFailure__ this callback is executed if _maxPolls_ is exceeded.
 * __onResults__ the results from a successful _ajax_ request. Call _stopPolling()_ to remove this request from the scheduler.
 
 Ajax Parameters
