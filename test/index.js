@@ -1,7 +1,7 @@
 var puts = require('util').puts,
-	tests = [],
-	pollioTest = require('./pollio-test');
-	 
+	fs = require('fs'),
+	tests = [];
+
 function run(callback, test) {
 	callback(
 		function() {
@@ -11,17 +11,11 @@ function run(callback, test) {
 			
 			puts(test + ' \033[32m[Success]\033[m');
 			if (tests.length == 0) {
-				setTimeout(function() {
-			  	puts(' \033[32mAll tests finished.\033[m');
-					process.exit();
-				}, 500);
+				puts(' \033[32mAll tests finished.\033[m');
+				process.exit();
+			} else {
+				tests.shift()();
 			}
-			
-			var nextTest = tests.shift();
-			if (nextTest) {
-				nextTest();
-			}
-			
 		},
 		test + ': '
 	);
@@ -37,6 +31,9 @@ function addTests(testsObject) {
 	}
 }
 
-addTests(pollioTest.tests);
-tests.shift()();
-setTimeout(function() {}, 30000);
+fs.readdir('./test', function(err, files) {
+	for (var i = 0, file; (file = files[i]) != null; i++) {
+		addTests( require('../test/' + file.match(/^(.*)\.js$/)[1]).tests );
+	}
+	tests.shift()();
+});
