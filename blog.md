@@ -1,4 +1,4 @@
-Much Win, with Node.js for Client-Side Unit Testing
+Much Win with Node.js for Client-Side Unit Testing
 =================================================
 
 I've never sat down to do browser-based unit-testing and left the experience with a huge smile on my face.
@@ -23,21 +23,16 @@ I pulled this into a micro-framework that I drop into all my JS projects:
 __Here's what a test looks like:__
 
 ```javascript
-'calling stopPolling in onResults removes the poll from the polling map': function(finished, prefix) {
-	var pollio = new PollIO();
-	
-	pollio.schedule({
-		identifier: 'foobar',
-		frequency: 1000,
-		url: 'example.com',
-		type: 'get',
-		onResults: function(results, stopPolling) {
-			stopPolling();
-			equal(pollio.pollLookup['foobar'], null, prefix + ' foobar poll not removed from map.');
+var equal = require('assert').equal;
+
+exports.tests = {
+	'true should be equal to true': function(finished, prefix) {
+		setTimeout(function() {
+			equal(true, true, prefix + " that's weird, true should really be equal to true.");
 			finished();
-		}
-	});
-}
+		}, 2000);
+	}
+};
 ```
 
 * __finished__ this closure is called once, upon the terminal condition of your unit test. It moves the suite forward to the next test.
@@ -97,4 +92,4 @@ JavaScript is such an easy language to mock in. This approach is much cleaner th
 Examples
 --------
 
-[PollIO](https://github.com/attachmentsme/pollio) Is a lightweight polling library built using the methodologies discussed in this post, check it out. 
+[pollio](https://github.com/attachmentsme/pollio) Is a lightweight polling library built using the methodologies discussed in this post, check it out. 
