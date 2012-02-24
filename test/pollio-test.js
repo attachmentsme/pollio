@@ -7,7 +7,7 @@ global.jQuery = {
 	ajax: function(params) {
 		setTimeout(function() {
 			params.success(jQuery.response);
-		}, 100);
+		}, 10);
 	}
 };
 
@@ -31,44 +31,44 @@ exports.tests = {
 	},
 	
 	'scheduleing an event with just a onResults condition populates currentPolls with appropriate object': function(finished, prefix) {
-		var pollio = new PollIO({pollLoopFrequency: 1000});
+		var pollio = new PollIO({pollLoopFrequency: 1000, autoStart: false});
 		pollio.schedule({
 			onResults: function(response) {return response.value;}
 		});
 		
 		equal(32, pollio.pollLookup[1].onResults({value: 32}), prefix + ' did not properly serialize function.');
-		equal(-1, pollio.pollLookup[1].iterations, prefix + ' incorrect duration.');
+		equal(-1, pollio.pollLookup[1].maxPolls, prefix + ' incorrect duration.');
 		equal(1, pollio.pollLookup[1].mod, prefix + ' incorrect mod.');
 		finished();
 	},
 	
 	'if the same poll is registered with the same identifier twice original is left': function(finished, prefix) {
-		var pollio = new PollIO();
+		var pollio = new PollIO({autoStart: false});
 		
 		pollio.schedule({
 			identifier: 'foobar',
 			pollFrequency: 2000,
-			iterations: 3
+			maxPolls: 3
 		});
 		
 		pollio.schedule({
 			identifier: 'foobar',
 			pollFrequency: 5000,
-			iterations: 5
+			maxPolls: 5
 		});
 		
-		equal(3, pollio.pollLookup['foobar'].iterations, prefix + ' incorrect duration.');
+		equal(3, pollio.pollLookup['foobar'].maxPolls, prefix + ' incorrect duration.');
 		equal(2, pollio.pollLookup['foobar'].mod, prefix + ' incorrect mod.');
 		finished();
 	},
 	
 	'ajaxParams populated with all keys not in the defaults object': function(finished, prefix) {
-		var pollio = new PollIO();
+		var pollio = new PollIO({autoStart: false});
 		
 		pollio.schedule({
 			identifier: 'foobar',
 			pollFrequency: 2000,
-			iterations: 3,
+			maxPolls: 3,
 			url: 'example.com',
 			type: 'get'
 		});
@@ -85,10 +85,11 @@ exports.tests = {
 		pollio.schedule({
 			identifier: 'foobar',
 			pollFrequency: 1000,
-			iterations: 3,
+			maxPolls: 3,
 			url: 'example.com',
 			type: 'get',
 			onResults: function(results, stopPolling) {
+				stopPolling();
 				equal(results.foo, 'bar', prefix + ' foo was not equal to bar.');
 				finished();
 			}
@@ -101,13 +102,36 @@ exports.tests = {
 		pollio.schedule({
 			identifier: 'foobar',
 			pollFrequency: 1000,
-			iterations: 3,
 			url: 'example.com',
 			type: 'get',
 			onResults: function(results, stopPolling) {
 				stopPolling();
 				equal(pollio.pollLookup['foobar'], null, prefix + ' foobar poll not removed from map.');
 				finished();
+			}
+		});
+	},
+
+	'polling stops after the appropriate number of polls': function(finished, prefix) {
+		var pollio = new PollIO({
+			pollLoopFrequency: 100
+		});
+		
+		var iterations = 0;
+
+		pollio.schedule({
+			identifier: 'foobar',
+			pollFrequency: 200,
+			maxPolls: 3,
+			url: 'example.com',
+			type: 'get',
+			onFailure: function() {
+				equal(pollio.pollLookup['foobar'], null, prefix + ' foobar poll not removed from map.');
+				equal(iterations, 3, prefix + ' did not terminate after the appropriate number of iterations.');
+				finished();
+			},
+			onResults: function(results, stopPolling) {
+				iterations++;
 			}
 		});
 	}
