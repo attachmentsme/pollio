@@ -23,11 +23,11 @@ Instantiating the PollIO object
  @param {object} the options object.
 */
 var pollio = new PollIO({
-	pollLoopFrequency: 1000 // Defaults to 1 second.
+	eventLoopInterval: 1000 // Defaults to 1 second.
 });
 ```
 
-* __pollLoopFrequency__ how often does the event loop iterate (you can't schedule an AJAX request to poll more frequently than this.)
+* __eventLoopInterval__ how often does the event loop iterate (you can't schedule an AJAX request to poll more frequently than this.)
 
 Scheduling a Polling AJAX Request
 ---------------------------------
@@ -35,8 +35,8 @@ Scheduling a Polling AJAX Request
 ```javascript
 pollio.schedule({
 	identifier: 'myPollingCall',
-	pollFrequency: 200, // ms.
-	maxPolls: 3,
+	frequency: 200, // ms.
+	max: 3, // defaults to infinite.
 	onFailure: function() {
 		// We did not hit a success scenario, take some default action.
 	},
@@ -52,8 +52,8 @@ pollio.schedule({
 ```
 
 * __identifier__ an optional identifier for the polling request. Only one polling request for a given identifier can be scheduled at a time.
-* __pollFrequency__ how frequently should this request be made? This can't be more often than _pollLoopFrequency_.
-* __maxPolls__ the maximum number of times that this request should be attempted.
+* __frequency__ how frequently should this request be made? This can't be more often than _eventLoopFrequency_.
+* __max__ the maximum number of times that this request should be attempted.
 * __onFailure__ this callback is executed if _maxPolls_ is exceeded.
 * __onResults__ the results from a successful _ajax_ request. Call _stopPolling()_ to remove this request from the scheduler.
 

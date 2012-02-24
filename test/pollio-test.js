@@ -13,31 +13,31 @@ global.jQuery = {
 
 exports.tests = {
 	'should allow the first parameter to be either params or the ajax function': function(finished, prefix) {
-		var pollio = new PollIO({pollLoopFrequency: 3000});
-		equal(3000, pollio.pollLoopFrequency, prefix + ' true was not false.');
+		var pollio = new PollIO({eventLoopInterval: 3000});
+		equal(3000, pollio.eventLoopInterval, prefix + ' true was not false.');
 		equal('function', typeof(pollio.ajax), prefix + ' ajax function was not defined.');
-		pollio = new PollIO(function() { return 'foo' }, {pollLoopFrequency: 2000});
-		equal(2000, pollio.pollLoopFrequency, prefix + ' true was not false.');
+		pollio = new PollIO(function() { return 'foo' }, {eventLoopInterval: 2000});
+		equal(2000, pollio.eventLoopInterval, prefix + ' true was not false.');
 		equal('foo', pollio.ajax(), prefix + ' ajax function was not defined.');
 		finished();
 	},
 	
 	'_calculateMod returns appropriate values for the intended poll interview': function(finished, prefix) {
-		var pollio = new PollIO({pollLoopFrequency: 1000});
-		equal(pollio._calculateMod(100), 1, prefix + ' value less than pollLoopFrequency should return 1.');
+		var pollio = new PollIO({eventLoopInterval: 1000});
+		equal(pollio._calculateMod(100), 1, prefix + ' value less than eventLoopInterval should return 1.');
 		equal(pollio._calculateMod(2000), 2, prefix + ' mod should be 2.');
 		equal(pollio._calculateMod(3000), 3, prefix + ' mod should be 3.');
 		finished();
 	},
 	
 	'scheduleing an event with just a onResults condition populates currentPolls with appropriate object': function(finished, prefix) {
-		var pollio = new PollIO({pollLoopFrequency: 1000, autoStart: false});
+		var pollio = new PollIO({eventLoopInterval: 1000, autoStart: false});
 		pollio.schedule({
 			onResults: function(response) {return response.value;}
 		});
 		
 		equal(32, pollio.pollLookup[1].onResults({value: 32}), prefix + ' did not properly serialize function.');
-		equal(-1, pollio.pollLookup[1].maxPolls, prefix + ' incorrect duration.');
+		equal(-1, pollio.pollLookup[1].max, prefix + ' incorrect duration.');
 		equal(1, pollio.pollLookup[1].mod, prefix + ' incorrect mod.');
 		finished();
 	},
@@ -47,17 +47,17 @@ exports.tests = {
 		
 		pollio.schedule({
 			identifier: 'foobar',
-			pollFrequency: 2000,
-			maxPolls: 3
+			frequency: 2000,
+			max: 3
 		});
 		
 		pollio.schedule({
 			identifier: 'foobar',
-			pollFrequency: 5000,
-			maxPolls: 5
+			frequency: 5000,
+			max: 5
 		});
 		
-		equal(3, pollio.pollLookup['foobar'].maxPolls, prefix + ' incorrect duration.');
+		equal(3, pollio.pollLookup['foobar'].max, prefix + ' incorrect duration.');
 		equal(2, pollio.pollLookup['foobar'].mod, prefix + ' incorrect mod.');
 		finished();
 	},
@@ -67,8 +67,8 @@ exports.tests = {
 		
 		pollio.schedule({
 			identifier: 'foobar',
-			pollFrequency: 2000,
-			maxPolls: 3,
+			frequency: 2000,
+			max: 3,
 			url: 'example.com',
 			type: 'get'
 		});
@@ -84,8 +84,8 @@ exports.tests = {
 		
 		pollio.schedule({
 			identifier: 'foobar',
-			pollFrequency: 1000,
-			maxPolls: 3,
+			frequency: 1000,
+			max: 3,
 			url: 'example.com',
 			type: 'get',
 			onResults: function(results, stopPolling) {
@@ -101,7 +101,7 @@ exports.tests = {
 		
 		pollio.schedule({
 			identifier: 'foobar',
-			pollFrequency: 1000,
+			frequency: 1000,
 			url: 'example.com',
 			type: 'get',
 			onResults: function(results, stopPolling) {
@@ -114,15 +114,15 @@ exports.tests = {
 
 	'polling stops after the appropriate number of polls': function(finished, prefix) {
 		var pollio = new PollIO({
-			pollLoopFrequency: 100
+			eventLoopInterval: 100
 		});
 		
 		var iterations = 0;
 
 		pollio.schedule({
 			identifier: 'foobar',
-			pollFrequency: 200,
-			maxPolls: 3,
+			frequency: 200,
+			max: 3,
 			url: 'example.com',
 			type: 'get',
 			onFailure: function() {
