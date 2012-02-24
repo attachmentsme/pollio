@@ -97,4 +97,4 @@ JavaScript is such an easy language to mock in. This approach is much cleaner th
 Examples
 --------
 
-__PollIO__ Is a lightweight polling library built using the methodologies discussed in this post, check it out. 
+[PollIO](https://github.com/attachmentsme/pollio) Is a lightweight polling library built using the methodologies discussed in this post, check it out. 
