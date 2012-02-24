@@ -20,7 +20,7 @@ Instantiating the PollIO object
 ```javascript
 /**
  @param {function} ajax function (optional, defaults to jQuery.ajax).
- @param {options} the options object.
+ @param {object} the options object.
 */
 var pollio = new PollIO({
 	pollLoopFrequency: 1000 // Defaults to 1 second.
