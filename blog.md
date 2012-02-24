@@ -40,7 +40,7 @@ __Here's what a test looks like:__
 }
 ```
 
-* __finished__ this closure is called once, upon the terminal condition of your unit test, and moves the suite forward.
+* __finished__ this closure is called once, upon the terminal condition of your unit test. It moves the suite forward to the next test.
 * __prefix__ a string containing the name of the current test being executed. This can be used to print out contextual information when your assertions fail.
 
 Client-Side Testing
@@ -56,4 +56,40 @@ Finally, fed up, I made up my mind:
   * allowing me to develop in a paradigm outside of the browser.
 * I'm going to rely heavily on mocks rather than integration tests.
 
-I've been using this approach for my past few projects, and let me tell you, I do have a huge smile on my face.
+I've been using this approach for my past few projects, and let me tell you, I have a huge smile on my face.
+
+Mocking
+-------
+
+Rather than running a headless browser, I mock out the browser dependencies.
+
+Here are some examples:
+
+__Mocking jQuery.ajax__
+
+```javascript
+global.jQuery = {
+	response: {foo: 'bar'},
+	ajax: function(params) {
+		setTimeout(function() {
+			params.success(jQuery.response);
+		}, 10);
+	}
+};
+```
+
+__Mocking the Chrome Extension API__
+
+```javascript
+global.chrome = {
+	extension: {
+		handleMessage: function(request, sender, callback) {
+			equal(sender.tab.id, 'background', prefix + ' tabId was not correct');
+			equal(request.body.foo, 'bar', prefix + ' foo was not equal to bar');
+			finished();
+		}
+	}
+}
+```
+
+JavaScript is such an easy language to mock in. In my opinion this approach is much cleaner than having a massive set of dependencies, i.e., the web-browser.
