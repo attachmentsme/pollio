@@ -1,7 +1,7 @@
 Much Win, with Node.js for Client-Side Unit Testing
 =================================================
 
-I've never sat down to do client-side unit-testing testing of JavaScript and left the experience with a huge smile on my face.
+I've never sat down to do browser-based unit-testing testing of JavaScript and left the experience with a huge smile on my face.
 
 As a result, I've found that I often drift away from being a responsible tester of my JavaScript code. Why is this?
 
