@@ -5,6 +5,10 @@ var puts = require('util').puts,
 function run(callback, test) {
 	callback(
 		function() {
+			
+			if (arguments.callee.executed) return;
+			arguments.callee.executed = true;
+			
 			puts(test + ' \033[32m[Success]\033[m');
 			if (tests.length == 0) {
 				setTimeout(function() {
