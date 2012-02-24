@@ -1,7 +1,7 @@
 PollIO
 ======
 
-PollIO wraps _jQuery.ajax_ and provides a convenient abstraction for polling and endpoint.
+PollIO wraps _jQuery.ajax_ and provides a convenient abstraction for polling an endpoint.
 
 Why it's cool:
 
