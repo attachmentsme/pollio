@@ -7,7 +7,7 @@ As a result, I've found that I often drift away from being a responsible tester 
 
 * Selector-based testing, using tools like Selenium and QUnit, is fragile.
 * Due to this selector-centric paradigm, I feel these tools encourage you to test the wrong things. Point-and-click integration testing is flimsy at best.
-* Given that these technologies are steeped in the browser, making them part of a CI process is a pain.
+* Given that these technologies are steeped in the browser, making them part of a CI pipeline is a pain.
 
 I've recently made a major change in my approach to client-side unit-testing. I'm not going back.
 
