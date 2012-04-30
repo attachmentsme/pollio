@@ -11,6 +11,14 @@ global.jQuery = {
 	}
 };
 
+var slowAjax = function(params) {
+	slowAjax.called += 1;
+	setTimeout(function() {
+		params.success({success: true});
+	}, 2000);
+};
+slowAjax.called = 0;
+
 exports.tests = {
 	'should allow the first parameter to be either params or the ajax function': function(finished, prefix) {
 		var pollio = new PollIO({eventLoopInterval: 3000});
@@ -154,6 +162,30 @@ exports.tests = {
 				stopPolling();
 				equal(results.foo, 'snuh', prefix + ' foo was not equal to snuh.');
 				finished();
+			}
+		});
+	},
+	
+	'we should not poll a second time until the prior poll has completed': function(finished, prefix) {
+		var pollio = new PollIO({
+			eventLoopInterval: 100
+		});
+		
+		var iterations = 0;
+
+		pollio.schedule({
+			identifier: 'foobar',
+			frequency: 200,
+			max: 3,
+			url: 'example.com',
+			type: 'get',
+			ajax: slowAjax,
+			onFailure: function() {
+				equal(1, slowAjax.called, prefix + ' ajax was called too many times should wait for response.')
+				finished();
+			},
+			onResults: function(results, stopPolling) {
+				iterations++;
 			}
 		});
 	}
